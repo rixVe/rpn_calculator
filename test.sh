@@ -1,0 +1,1 @@
+cat equation | xargs ./rpn
