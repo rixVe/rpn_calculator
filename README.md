@@ -4,3 +4,4 @@ It converts regular notation equations into RPN.
 # TODO
 - Read input from file or stdin.
 - Implement a hashmap of operations
+- Implement a build system (CMake probably)
