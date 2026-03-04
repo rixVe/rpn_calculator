@@ -1,6 +1,7 @@
 #ifndef HASHMAP_H
 #define HASHMAP_H
 #include <stddef.h>
+#include <stdbool.h>
 typedef struct {
   void* key;
   size_t key_size;
@@ -15,6 +16,7 @@ typedef struct {
 
 void map_initialize(Map* map);
 void* map_get(Map* map, void* key, size_t key_size);
+bool map_contains_key(Map* map, void* key, size_t key_size);
 void map_insert(Map* map, void* key, size_t key_size, void* value);
 void map_delete(Map* map, void* key, size_t key_size);
 Entry* map_iter(Map* map, int index);
