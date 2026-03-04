@@ -11,15 +11,15 @@ typedef struct {
   void* array;
 } Stack;
 
-void initialize_stack(Stack* s, size_t it_size);
+void stack_initialize(Stack* s, size_t it_size);
 
-void push_stack(Stack* s, void* element);
+void stack_push(Stack* s, void* element);
 
-void pop_stack(Stack* s, void* dst);
+void stack_pop(Stack* s, void* dst);
 
-void peep_stack(Stack* s, void* dst);
+void stack_peep(Stack* s, void* dst);
 
-bool is_empty_stack(Stack*s);
+bool stack_is_empty(Stack*s);
 
-void free_stack(Stack* s);
+void stack_free(Stack* s);
 #endif

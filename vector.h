@@ -9,10 +9,10 @@ typedef struct {
   void* array;
 } Vector;
 
-void initialize_vector(Vector* v, size_t it_size);
-void push_vector(Vector* v, void* src);
-void get_vector(Vector* v,int index,  void* dst);
-int get_size_vector(Vector* v);
-void free_vector(Vector* v);
+void vector_initialize(Vector* v, size_t it_size);
+void vector_push(Vector* v, void* src);
+void vector_get(Vector* v,int index,  void* dst);
+int vector_get_size(Vector* v);
+void vector_free(Vector* v);
 
 #endif

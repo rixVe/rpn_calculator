@@ -61,101 +61,101 @@ bool is_operator(char* c) {
 int main(int argc, char** argv) {
   // TODO files and hashmap
   Vector equation;
-  initialize_vector(&equation, sizeof(char*));
+  vector_initialize(&equation, sizeof(char*));
   for(int i = 1; i < argc; ++i) {
-    push_vector(&equation, &argv[i]);
+    vector_push(&equation, &argv[i]);
   }
   
   Vector ans;
-  initialize_vector(&ans, sizeof(char*));
+  vector_initialize(&ans, sizeof(char*));
 
   Stack operator_stack;
-  initialize_stack(&operator_stack, sizeof(char*));
+  stack_initialize(&operator_stack, sizeof(char*));
   
   char* token;
   char* buffer;
-  for (int i = 0; i < get_size_vector(&equation); ++i) {
-    get_vector(&equation, i, &token);
+  for (int i = 0; i < vector_get_size(&equation); ++i) {
+    vector_get(&equation, i, &token);
     if(isdigit(*token)) {
-      push_vector(&ans, &token);
+      vector_push(&ans, &token);
     }
 
     else if(strcmp(token, ",")==0) {
       char* op;
-      while(!is_empty_stack(&operator_stack)) {
-        peep_stack(&operator_stack, &op);
+      while(!stack_is_empty(&operator_stack)) {
+        stack_peep(&operator_stack, &op);
         if(strcmp(op, "(")==0) {
           break;
         }
-        pop_stack(&operator_stack, &op);
-        push_vector(&ans,&op);
+        stack_pop(&operator_stack, &op);
+        vector_push(&ans,&op);
       }
     }
 
     else if(strcmp(token, "(")==0) {
-      push_stack(&operator_stack, &token);
+      stack_push(&operator_stack, &token);
     }
 
     else if(strcmp(token, ")")==0) {
-      if (is_empty_stack(&operator_stack)) return -1;
+      if (stack_is_empty(&operator_stack)) return -1;
       char* op;
       bool found = false;
-      while(!is_empty_stack(&operator_stack)) {
-        pop_stack(&operator_stack, &op);
+      while(!stack_is_empty(&operator_stack)) {
+        stack_pop(&operator_stack, &op);
         if(strcmp(op, "(")==0) {
           found = true;
           break;
         }
 
-        push_vector(&ans, &op);
+        vector_push(&ans, &op);
       }
       if(!found) return -1;
-      peep_stack(&operator_stack, &buffer);
+      stack_peep(&operator_stack, &buffer);
       if(!is_operator(buffer) && !isdigit(*buffer) && !(strcmp(buffer, ",")==0) && !(strcmp(token, "(")==0) && !(strcmp(token, ")")==0)) {
-        pop_stack(&operator_stack, &buffer);
-        push_vector(&ans, &buffer);
+        stack_pop(&operator_stack, &buffer);
+        vector_push(&ans, &buffer);
       }
     }
     else if(is_operator(token)) {
       char* pop_buff;
-      while(!is_empty_stack(&operator_stack)) {
-        peep_stack(&operator_stack, &buffer);
+      while(!stack_is_empty(&operator_stack)) {
+        stack_peep(&operator_stack, &buffer);
         if(strcmp(buffer, "(")==0){
           break;
         }
         if(char_to_operation(buffer) >= char_to_operation(token)) {
-          pop_stack(&operator_stack, &pop_buff);
-          push_vector(&ans, &pop_buff);
+          stack_pop(&operator_stack, &pop_buff);
+          vector_push(&ans, &pop_buff);
         }
         else {
           break;
         }
       }
         
-      push_stack(&operator_stack,&token);
+      stack_push(&operator_stack,&token);
     }
     else { //custom function
-      push_stack(&operator_stack,&token);
+      stack_push(&operator_stack,&token);
     }
   }
-  while(!is_empty_stack(&operator_stack)) {
-    pop_stack(&operator_stack, &buffer);
+  while(!stack_is_empty(&operator_stack)) {
+    stack_pop(&operator_stack, &buffer);
     if(strcmp(buffer, "(")==0) {
       return -1;
     }
-    push_vector(&ans, &buffer);
+    vector_push(&ans, &buffer);
   }
 
   
   
   char* buff;
-  for(int i = 0; i < get_size_vector(&ans); ++i) {
-    get_vector(&ans, i, &buff);
+  for(int i = 0; i < vector_get_size(&ans); ++i) {
+    vector_get(&ans, i, &buff);
     printf("%s ", buff);
   }
 
-  free_vector(&equation);
-  free_vector(&ans);
-  free_stack(&operator_stack);
+  vector_free(&equation);
+  vector_free(&ans);
+  stack_free(&operator_stack);
   return 0;
 }
