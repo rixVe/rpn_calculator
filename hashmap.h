@@ -2,24 +2,28 @@
 #define HASHMAP_H
 #include <stddef.h>
 #include <stdbool.h>
+
 typedef struct {
   void* key;
-  size_t key_size;
   void* value;
 } Entry;
 
 typedef struct {
-  Entry* array;
-  size_t used;
+  int used;
   size_t capacity;
+  size_t key_size;
+  size_t value_size;
+  Entry* buckets;
+  void* data;
+  int data_capacity;
+  int data_used;
 } Map;
 
-void map_initialize(Map* map);
-void* map_get(Map* map, void* key, size_t key_size);
-bool map_contains_key(Map* map, void* key, size_t key_size);
-void map_insert(Map* map, void* key, size_t key_size, void* value);
-void map_delete(Map* map, void* key, size_t key_size);
-Entry* map_iter(Map* map, int index);
+void map_initialize(Map* map, size_t key_size, size_t value_size);
+void* map_get_value(Map* map, void* key);
+bool map_contains_key(Map* map, void* key);
+void map_set(Map* map, void* key, void* value);
+Entry map_iter(Map* map, int index);
 void map_free(Map* map);
 
 
