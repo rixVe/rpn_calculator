@@ -1,5 +1,6 @@
 #include "stack.h"
 #include "vector.h"
+#include "hashmap.h"
 #include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
