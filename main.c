@@ -24,7 +24,7 @@ int weights[] = {
 };
 
 int main(int argc, char **argv) {
-    // TODO files and hashmap
+    // TODO files
     Map operations_map;
     map_initialize(&operations_map, sizeof(char), sizeof(int));
     for (int i = 0; i < 6; i++) {
